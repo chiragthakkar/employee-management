@@ -1,0 +1,44 @@
+version: '3.1'
+services:
+  server:
+    image: 'nginx:stable-alpine'
+    ports:
+     - '8080:80'
+    volumes :
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mysql
+  php:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/php.dockerfile
+    env_file:
+      - ./env/.env
+    volumes:
+     - ./src:/var/www/html:delegated
+     - ./src/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+  mysql:
+    image: mysql:latest
+    env_file:
+      - ./env/.env
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+  react:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/react.dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src/react:/var/www/html/src/react
+    depends_on:
+      - server
