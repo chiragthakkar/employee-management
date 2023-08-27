@@ -8,7 +8,8 @@ class DbConnection {
     private $pdo;
 
     public function __construct() {
-        $host = 'mysql';  // This should match the service name in your docker-compose.yml
+        
+        $host = $_ENV['MYSQL_HOST'];  // This should match the service name in your docker-compose.yml
         $database = $_ENV['MYSQL_DATABASE'];
         $username = $_ENV['MYSQL_USER'];
         $password = $_ENV['MYSQL_PASSWORD'];
@@ -21,6 +22,7 @@ class DbConnection {
         } catch (PDOException $e) {
             die("Database connection failed: " . $e->getMessage());
         }
+
     }
 
     public function getPDO() {
