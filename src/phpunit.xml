@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+    <!-- Other configuration settings -->
+
+    <php>
+        <env name="MYSQL_HOST" value="mysql"/>
+        <env name="MYSQL_ROOT_PASSWORD" value="dev_passwd"/>
+        <env name="MYSQL_DATABASE" value="employee_db"/>
+        <env name="MYSQL_USER" value="employee_user"/>
+        <env name="MYSQL_PASSWORD" value="employee_password"/>
+        <!-- Add more env variables as needed -->
+    </php>
+
+    <!-- Test suite configurations -->
+</phpunit>

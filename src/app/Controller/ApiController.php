@@ -37,9 +37,8 @@ class ApiController {
     }
 
     public function updateEmployeeEmail() {
-        
-        $data = json_decode(file_get_contents('php://input'), true);
 
+        $data = $_REQUEST;
         if (!isset($data['email_address']) || !isset($data['id'])) {
             return $this->jsonResponse(400, "Data is not correct.");
         }
