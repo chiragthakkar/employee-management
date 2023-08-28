@@ -17,7 +17,6 @@ services:
     env_file:
       - ./env/.env
     volumes:
-     - ./src:/var/www/html:delegated
      - ./src/custom.ini:/usr/local/etc/php/conf.d/custom.ini
   mysql:
     image: mysql:latest
@@ -38,7 +37,5 @@ services:
       dockerfile: ./dockerfiles/react.dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - ./src/react:/var/www/html/src/react
     depends_on:
       - server

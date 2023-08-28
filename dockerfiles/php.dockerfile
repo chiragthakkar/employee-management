@@ -13,16 +13,11 @@ RUN apk add --no-cache \
     && apk add --no-cache curl \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the composer.json and composer.lock files to the /var/www/html directory
-COPY src/composer.json ./composer.json
-COPY src/composer.lock ./composer.lock
-
-# Install dependencies using Composer
-RUN composer install --no-interaction --no-dev --optimize-autoloader
-RUN composer dump-autoload
-
 # Copy all PHP files into the container
 COPY src/ ./
+
+# Install dependencies using Composer
+RUN composer install --no-interaction --optimize-autoloader
 
 EXPOSE 9000
 
